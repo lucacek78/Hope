@@ -28,7 +28,16 @@ var app={
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-      alert("Pronto...");
+      //alert("Pronto...");
+      //Controllo se il Bluetooth è attivo
+      bluetoothSerial.isEnabled(
+        function(){
+          console.log("Bluetooth abilitato");
+        },
+        function(){
+          console.log("Bluetooth non abilitato");
+        }
+      );
     }
 };
 
