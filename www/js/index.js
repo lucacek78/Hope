@@ -33,9 +33,11 @@ var app={
       bluetoothSerial.isEnabled(
         function(){
           console.log("Bluetooth abilitato");
+          //$("#aalert").click();
         },
         function(){
           console.log("Bluetooth non abilitato");
+          $("#aalert").click();
         }
       );
     }
