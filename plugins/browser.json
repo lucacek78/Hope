@@ -15,6 +15,9 @@
         },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "com.phonegap.plugins.nativesettingsopener": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {}

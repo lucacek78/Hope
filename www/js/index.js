@@ -20,7 +20,9 @@
 var app={
     // Application Constructor
     initialize: function(){
-      document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
+      //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
+      document.addEventListener('deviceready',this.onDeviceReady,false);
+      document.addEventListener('pause',this.onPause,false);
     },
 
     // deviceready Event Handler
@@ -34,12 +36,17 @@ var app={
         function(){
           console.log("Bluetooth abilitato");
           //$("#aalert").click();
+          $("#alert").hide();
         },
         function(){
           console.log("Bluetooth non abilitato");
           $("#aalert").click();
         }
       );
+    },
+    onPause: function(){
+      this.onDeviceReady();
+      //$("#alert").hide();
     }
 };
 
@@ -47,6 +54,16 @@ var ble={
     gradi: function(){
       var gradi=$("#points").val();
       console.log("Send to BLE: "+gradi);
+    },
+    setble: function(){
+      if(typeof cordova.plugins.settings.openSetting != undefined){
+          cordova.plugins.settings.openSetting("bluetooth", function(){
+            console.log("opened BLE settings")
+          },
+          function(){
+            console.log("failed to open BLE settings")
+          });
+      }
     }
 };
 
@@ -55,5 +72,10 @@ $(document).ready(function(){
 
     $("#points").change(function(){
       ble.gradi();
+    });
+
+    $("#setblue").on("tap",function(){
+      console.log("BLE SETTINGS...");
+      ble.setble();
     });
 });

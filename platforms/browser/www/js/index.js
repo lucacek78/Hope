@@ -47,6 +47,16 @@ var ble={
     gradi: function(){
       var gradi=$("#points").val();
       console.log("Send to BLE: "+gradi);
+    },
+    setble: function(){
+      if(typeof cordova.plugins.settings.openSetting != undefined){
+          cordova.plugins.settings.openSetting("bluetooth", function(){
+            console.log("opened BLE settings")
+          },
+          function(){
+            console.log("failed to open BLE settings")
+          });
+      }
     }
 };
 
@@ -55,5 +65,10 @@ $(document).ready(function(){
 
     $("#points").change(function(){
       ble.gradi();
+    });
+
+    $("#setblue").on("tap",function(){
+      console.log("BLE SETTINGS...");
+      ble.setble();
     });
 });

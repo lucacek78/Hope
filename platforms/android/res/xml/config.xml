@@ -7,6 +7,9 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="NativeSettings">
+        <param name="android-package" value="com.phonegap.plugins.nativesettings.NativeSettings" />
+    </feature>
     <name>Hope</name>
     <description>
         Hope program for BLUETOOTH.
