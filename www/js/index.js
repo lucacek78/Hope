@@ -22,7 +22,7 @@ var app={
     initialize: function(){
       //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
       document.addEventListener('deviceready',this.onDeviceReady,false);
-      document.addEventListener('pause',this.onPause,false);
+      document.addEventListener('resume',this.onResume,false);
     },
 
     // deviceready Event Handler
@@ -44,7 +44,7 @@ var app={
         }
       );
     },
-    onPause: function(){
+    onResume: function(){
       this.onDeviceReady();
       //$("#alert").hide();
     }
