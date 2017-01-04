@@ -71,11 +71,26 @@
         -->
 
         <div data-role="page" id="principale">
-          <div data-role="header"><h1>Hope</h1></div>
+          <div data-role="header">
+            <h1>Hope</h1>
+            <a href="#bluetooth" data-transition="slide" class="ui-btn ui-btn-right ui-icon-search ui-btn-icon-left">Device</a>
+          </div>
           <div data-role="main" class="ui-content">
+            <!-- COMANDI DA INVIARE -->
             Hope program for Bluetooth and Servo...
             <input type="range" name="points" id="points" value="90" min="0" max="180">
           </div>
+        </div>
+
+        <div data-role="page" id="bluetooth">
+          <div data-role="header">
+            <h1>List BLE</h1>
+            <a href="#principale" data-transition="slide" data-direction="reverse" class="ui-btn ui-btn-right ui-icon-back ui-btn-icon-left">Back</a>
+          </div>
+          <div data-role="main" class="ui-content">
+            <!-- LISTA DEVICE -->
+          </div>
+
         </div>
 
         <script type="text/javascript" src="cordova.js"></script>
