@@ -22,7 +22,6 @@ var app={
     initialize: function(){
       //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
       document.addEventListener('deviceready',this.onDeviceReady,false);
-      document.addEventListener('resume',this.onResume,false);
     },
 
     // deviceready Event Handler
@@ -31,12 +30,13 @@ var app={
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
       //alert("Pronto...");
+      document.addEventListener('resume',this.onResume,false);
       //Controllo se il Bluetooth è attivo
       bluetoothSerial.isEnabled(
         function(){
           console.log("Bluetooth abilitato");
           //$("#aalert").click();
-          $("#alert").hide();
+          //$("#alert").hide();
         },
         function(){
           console.log("Bluetooth non abilitato");
@@ -45,8 +45,8 @@ var app={
       );
     },
     onResume: function(){
-      this.onDeviceReady();
-      //$("#alert").hide();
+      //this.onDeviceReady();
+      $("#alert").hide();
     }
 };
 
@@ -56,8 +56,8 @@ var ble={
       console.log("Send to BLE: "+gradi);
     },
     setble: function(){
-      if(typeof cordova.plugins.settings.openSetting != undefined){
-          cordova.plugins.settings.openSetting("bluetooth", function(){
+      if(typeof cordova.plugins.settings.openSetting!=undefined){
+          cordova.plugins.settings.openSetting("bluetooth",function(){
             console.log("opened BLE settings")
           },
           function(){
