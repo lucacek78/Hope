@@ -30,7 +30,6 @@ var app={
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
       //alert("Pronto...");
-      document.addEventListener('resume',this.onResume,false);
       //Controllo se il Bluetooth è attivo
       bluetoothSerial.isEnabled(
         function(){
@@ -43,6 +42,7 @@ var app={
           $("#aalert").click();
         }
       );
+      document.addEventListener('resume',this.onResume,false);
     },
     onResume: function(){
       //this.onDeviceReady();
