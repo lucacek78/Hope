@@ -21,22 +21,24 @@ var app={
     // Application Constructor
     initialize: function(){
       //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
-      document.addEventListener('deviceready',this.onDeviceReady,false);
-      document.addEventListener('resume',this.onResume,false);
+      document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
     },
 
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-      //alert("Pronto...");
+    onDeviceReady: function(){
+      //Event...
+      document.addEventListener('resume',this.onResume,false);
       //Controllo se il Bluetooth è attivo
+      this.bluetoothStatus();
+    },
+    bluetoothStatus: function(){
       bluetoothSerial.isEnabled(
         function(){
           console.log("Bluetooth abilitato");
           //$("#aalert").click();
-          $("#alert").hide();
         },
         function(){
           console.log("Bluetooth non abilitato");
@@ -45,8 +47,7 @@ var app={
       );
     },
     onResume: function(){
-      this.onDeviceReady();
-      //$("#alert").hide();
+      //this.onDeviceReady();
     }
 };
 
@@ -78,4 +79,5 @@ $(document).ready(function(){
       console.log("BLE SETTINGS...");
       ble.setble();
     });
+
 });
