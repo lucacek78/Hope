@@ -20,8 +20,8 @@
 var app={
     // Application Constructor
     initialize: function(){
-      //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
       document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
+      //document.addEventListener('deviceready',this.onDeviceReady,false);
     },
 
     // deviceready Event Handler
@@ -38,19 +38,16 @@ var app={
       bluetoothSerial.isEnabled(
         function(){
           console.log("Bluetooth abilitato");
-          $("#aalert").click();
-          //$("#alert").dialog("close");
-          //$(".ui-dialog-titlebar-close").trigger("click");
         },
         function(){
           console.log("Bluetooth non abilitato");
-          $("#aalert").click();
+          $("#palert").click();
         }
       );
+      document.addEventListener('resume',this.onResume,false);
     },
     onResume: function(){
-      //this.onDeviceReady();
-      $("#alert").dialog("close");
+      //Resume function
     }
 };
 
@@ -83,9 +80,4 @@ $(document).ready(function(){
       ble.setble();
     });
 
-    $("#closediag").on("tap",function(){
-      console.log("CLOSE DIAG...");
-      //$("#alert").dialog("close");
-      $(".ui-dialog-titlebar-close").trigger("click");
-    });
 });

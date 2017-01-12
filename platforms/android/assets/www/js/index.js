@@ -20,12 +20,8 @@
 var app={
     // Application Constructor
     initialize: function(){
-      //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
-<<<<<<< HEAD
-      document.addEventListener('deviceready',this.onDeviceReady,false);
-=======
       document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
->>>>>>> origin/master
+      //document.addEventListener('deviceready',this.onDeviceReady,false);
     },
 
     // deviceready Event Handler
@@ -42,25 +38,16 @@ var app={
       bluetoothSerial.isEnabled(
         function(){
           console.log("Bluetooth abilitato");
-          //$("#aalert").click();
-<<<<<<< HEAD
-          //$("#alert").hide();
-=======
->>>>>>> origin/master
         },
         function(){
           console.log("Bluetooth non abilitato");
-          $("#aalert").click();
+          $("#palert").click();
         }
       );
       document.addEventListener('resume',this.onResume,false);
     },
     onResume: function(){
-      //this.onDeviceReady();
-<<<<<<< HEAD
-      $("#alert").hide();
-=======
->>>>>>> origin/master
+      //Resume function
     }
 };
 
