@@ -20,8 +20,13 @@
 var app={
     // Application Constructor
     initialize: function(){
+<<<<<<< HEAD
       //document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
       document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
+=======
+      document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
+      //document.addEventListener('deviceready',this.onDeviceReady,false);
+>>>>>>> origin/master
     },
 
     // deviceready Event Handler
@@ -41,13 +46,17 @@ var app={
         },
         function(){
           console.log("Bluetooth non abilitato");
-          $("#aalert").click();
+          $("#palert").click();
         }
       );
       document.addEventListener('resume',this.onResume,false);
     },
     onResume: function(){
+<<<<<<< HEAD
       //this.onDeviceReady();
+=======
+      //Resume function
+>>>>>>> origin/master
     }
 };
 

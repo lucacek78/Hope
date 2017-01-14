@@ -75,23 +75,19 @@
           <div data-role="header">
             <h1>Hope</h1>
             <a href="#bluetooth" data-transition="slide" class="ui-btn ui-btn-right ui-icon-search ui-btn-icon-left">Device</a>
+            <a href="#" id="setblue" data-transition="slide" class="ui-btn ui-btn-left ui-icon-gear ui-btn-icon-left">Setting</a>
           </div>
           <div data-role="main" class="ui-content">
             <!-- COMANDI DA INVIARE -->
-            Hope program for Bluetooth and Servo...
+            Arduino Bluetooth Interface
             <input type="range" name="points" id="points" value="90" min="0" max="180">
-            <!-- Dialog link --->
-            <a id="aalert" href="#alert"></a>
-          </div>
-        </div>
-
-        <!-- DIALOG -->
-        <div data-role="page" data-dialog="true" id="alert">
-        <!-- <div data-role="page" data-dialog="true" data-close-btn="none" id="alert"> -->
-          <div data-role="header"><h1>WARNING</h1></div>
-          <div data-role="main" class="ui-content">
-            <p>BLUETOOTH is disabled.
-            <a class="ui-btn" id="setblue" href="#">Go to Bluetooth Settings...</a>
+            <!-- SIMULATE CLICK -->
+            <a href="#popble" data-rel="popup" id="palert"></a>
+            <!-- POPUPS -->
+            <div data-role="popup" id="popble" class="ui-content" data-position-to="window">
+              <h3>ALERT</h3>
+              <p>Bluetooth disabilitato.</p>
+            </div>
           </div>
         </div>
 
