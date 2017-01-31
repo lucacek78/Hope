@@ -63,7 +63,8 @@ var ble={
           },
           function(){
             console.log("failed to open BLE settings")
-        });*/
+          });
+        }*/
         bluetoothSerial.showBluetoothSettings(
           function(){
               //SUCCESS
@@ -73,7 +74,6 @@ var ble={
               //FAILURE
               console.log("NO BLUETOOTH SETTINGS ON DEVICE");
           });
-      }
     }
 };
 

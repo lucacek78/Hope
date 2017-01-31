@@ -57,14 +57,23 @@ var ble={
       console.log("Send to BLE: "+gradi);
     },
     setble: function(){
-      if(typeof cordova.plugins.settings.openSetting!=undefined){
+      /*if(typeof cordova.plugins.settings.openSetting!=undefined){
           cordova.plugins.settings.openSetting("bluetooth",function(){
             console.log("opened BLE settings")
           },
           function(){
             console.log("failed to open BLE settings")
           });
-      }
+        }*/
+        bluetoothSerial.showBluetoothSettings(
+          function(){
+              //SUCCESS
+              cosole.log("BLUETOOTH SETTINGS ON DEVICE");
+          },
+          function(){
+              //FAILURE
+              console.log("NO BLUETOOTH SETTINGS ON DEVICE");
+          });
     }
 };
 
