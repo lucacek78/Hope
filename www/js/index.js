@@ -85,8 +85,12 @@ $(document).ready(function(){
     });
 
     $("#setblue").on("tap",function(){
+      //Load Bluetooth preferencies
       console.log("BLE SETTINGS...");
       ble.setble();
+      //Visualizzo la lista dei dispositivi associati
+      console.log("BLE DEVICE...");
+       
     });
 
 });
