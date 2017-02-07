@@ -88,9 +88,37 @@ $(document).ready(function(){
       //Load Bluetooth preferencies
       console.log("BLE SETTINGS...");
       ble.setble();
+    });
+
+    $("#device").on("tap",function(){
       //Visualizzo la lista dei dispositivi associati
-      console.log("BLE DEVICE...");
-       
+      console.log("BLE PAIR DEVICE...");
+      var myList=document.getElementById("listble");
+      bluetoothSerial.list(
+        function(devices){
+          //SUCCESS
+          myList.innerHTML="Search Bluetooth Device...";
+          devices.forEach(function(device){
+            if(device.hasOwnProperty("uuid")){
+              console.log("uuid: "+device.uuid);
+            }else if(device.hasOwnProperty("address")){
+              console.log("address: "+device.address);
+            }else{
+              console.log("ERROR "+JSON.stringify(device));
+            }
+          });
+          if(devices.length==0){
+            //NO PAIR DEVICE
+            myList.innerHTML="NO BLUETOOTH DEVICE FOUND";
+          }else{
+            myList.innerHTML="FOUND "+devices.length+" DEVICES";
+          }
+        },
+        function(){
+          //FAILURE
+          myList.innerHTML="NO BLUETOOTH DEVICES FOUND";
+        }
+      );
     });
 
 });
