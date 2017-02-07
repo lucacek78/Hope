@@ -104,7 +104,7 @@ $(document).ready(function(){
             }else if(device.hasOwnProperty("address")){
               console.log("address: "+device.address);
             }else{
-              console.log("ERROR "+JSON.stringify(device));
+              console.log("ERROR");
             }
           });
           if(devices.length==0){
