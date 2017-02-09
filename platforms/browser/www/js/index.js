@@ -94,6 +94,7 @@ $(document).ready(function(){
       //Visualizzo la lista dei dispositivi associati
       console.log("BLE PAIR DEVICE...");
       var myList=document.getElementById("listble");
+      var pairDevices=[];
       bluetoothSerial.list(
         function(devices){
           //SUCCESS
@@ -103,8 +104,9 @@ $(document).ready(function(){
               console.log("uuid: "+device.uuid);
             }else if(device.hasOwnProperty("address")){
               console.log("address: "+device.address);
+              pairDevices.push(device.address);
             }else{
-              console.log("ERROR "+JSON.stringify(device));
+              console.log("ERROR");
             }
           });
           if(devices.length==0){
@@ -112,6 +114,7 @@ $(document).ready(function(){
             myList.innerHTML="NO BLUETOOTH DEVICE FOUND";
           }else{
             myList.innerHTML="FOUND "+devices.length+" DEVICES";
+            myList.innerHTML=pairDevices;
           }
         },
         function(){
