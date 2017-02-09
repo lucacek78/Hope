@@ -115,6 +115,7 @@ $(document).ready(function(){
           }else{
             //myList.innerHTML="FOUND "+devices.length+" DEVICES";
             //myList.innerHTML=pairDevices;
+            myList.innerHTML="";
             myList.innerHTML="<h2>FOUND: "+devices.length+"</h2><ul data-role=\"listview\"><li data-icon=\"plus\"><a href=\"#\">"+pairDevices[0]+"</a></li><li data-icon=\"plus\"><a href=\"#\">"+pairDevices[1]+"</a></li></ul>";
           }
         },
