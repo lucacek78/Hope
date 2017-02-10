@@ -48,6 +48,10 @@ var app={
     },
     onResume: function(){
       //Resume function
+    },
+    connect: function(){
+      //Attached pair BLE device
+      alert("ATTACHED...");
     }
 };
 
@@ -80,6 +84,10 @@ var ble={
 $(document).ready(function(){
     app.initialize();
 
+    $("#listble").bind("touchstart click",function(e){
+      alert(e.target.getAttribute('deviceId'));
+    });
+
     $("#points").change(function(){
       ble.gradi();
     });
@@ -93,12 +101,11 @@ $(document).ready(function(){
     $("#device").on("tap",function(){
       //Visualizzo la lista dei dispositivi associati
       console.log("BLE PAIR DEVICE...");
-      var myList=document.getElementById("listble");
       var pairDevices=[];
       bluetoothSerial.list(
         function(devices){
           //SUCCESS
-          myList.innerHTML="Search Bluetooth Device...";
+          $("#listble").html("Search Bluetooth Device");
           devices.forEach(function(device){
             if(device.hasOwnProperty("uuid")){
               console.log("uuid: "+device.uuid);
@@ -108,20 +115,25 @@ $(document).ready(function(){
             }else{
               console.log("ERROR");
             }
+            console.log("Name: "+device.name);
           });
           if(devices.length==0){
             //NO PAIR DEVICE
-            myList.innerHTML="NO BLUETOOTH DEVICE FOUND";
+            $("#listble").html("NO BLUETOOTH DEVICE FOUND");
           }else{
-            //myList.innerHTML="FOUND "+devices.length+" DEVICES";
-            //myList.innerHTML=pairDevices;
-            myList.innerHTML="";
-            myList.innerHTML="<h2>FOUND: "+devices.length+"</h2><ul data-role=\"listview\"><li data-icon=\"plus\"><a href=\"#\">"+pairDevices[0]+"</a></li><li data-icon=\"plus\"><a href=\"#\">"+pairDevices[1]+"</a></li></ul>";
+
+            var output="<h2>FOUND: "+devices.length+"</h2><ul data-role=\"listview\">";
+            for(i=0;i<=(devices.length-1);i++){
+              output=output+"<li data-icon=\"plus\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+pairDevices[i]+"</a></li>";
+            }
+            output=output+"</ul>";
+            $("#listble").html(output).trigger("create");
+            $('.newlistview').listview("refresh");
           }
         },
         function(){
           //FAILURE
-          myList.innerHTML="NO BLUETOOTH DEVICES FOUND";
+          $("#listble").html("NO BLUETOOTH DEVICE FOUND");
         }
       );
     });
