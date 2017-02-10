@@ -22,6 +22,7 @@ var app={
     initialize: function(){
       document.addEventListener('deviceready',this.onDeviceReady.bind(this),false);
       //document.addEventListener('deviceready',this.onDeviceReady,false);
+      document.addEventListener('resume',this.onResume,false);
     },
 
     // deviceready Event Handler
@@ -29,8 +30,6 @@ var app={
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function(){
-      //Event...
-      document.addEventListener('resume',this.onResume,false);
       //Controllo se il Bluetooth è attivo
       this.bluetoothStatus();
     },
@@ -45,14 +44,9 @@ var app={
           $("#palert").click();
         }
       );
-      document.addEventListener('resume',this.onResume,false);
     },
     onResume: function(){
       //Resume function
-    },
-    connect: function(){
-      //Attached pair BLE device
-      alert("ATTACHED...");
     }
 };
 
