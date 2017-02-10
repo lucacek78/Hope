@@ -41,6 +41,7 @@ var app={
         },
         function(){
           console.log("Bluetooth non abilitato");
+          //Simulate the click function to open the popup alert
           $("#palert").click();
         }
       );
@@ -72,7 +73,7 @@ var ble={
         bluetoothSerial.showBluetoothSettings(
           function(){
               //SUCCESS
-              cosole.log("BLUETOOTH SETTINGS ON DEVICE");
+              console.log("BLUETOOTH SETTINGS ON DEVICE");
           },
           function(){
               //FAILURE
@@ -84,10 +85,16 @@ var ble={
 $(document).ready(function(){
     app.initialize();
 
+    //Connect the list at touch event
     $("#listble").bind("touchstart click",function(e){
       alert(e.target.getAttribute('deviceId'));
+      /*
+      var devAddress=e.target.getAttribute('deviceId');
+      bluetoothSerial.connect(devAddress,ble.onconnect,ble.ondisconnect);
+      */
     });
 
+    //When slide chenge change value...
     $("#points").change(function(){
       ble.gradi();
     });
@@ -101,10 +108,10 @@ $(document).ready(function(){
     $("#device").on("tap",function(){
       //Visualizzo la lista dei dispositivi associati
       console.log("BLE PAIR DEVICE...");
-      var pairDevices=[];
+      var pairDevices=[],nameDevices=[];
       bluetoothSerial.list(
         function(devices){
-          //SUCCESS
+          //SUCCESS create a listview of pair devices with name and address
           $("#listble").html("Search Bluetooth Device");
           devices.forEach(function(device){
             if(device.hasOwnProperty("uuid")){
@@ -116,6 +123,7 @@ $(document).ready(function(){
               console.log("ERROR");
             }
             console.log("Name: "+device.name);
+            nameDevices.push(device.name);
           });
           if(devices.length==0){
             //NO PAIR DEVICE
@@ -124,9 +132,10 @@ $(document).ready(function(){
 
             var output="<h2>FOUND: "+devices.length+"</h2><ul data-role=\"listview\">";
             for(i=0;i<=(devices.length-1);i++){
-              output=output+"<li data-icon=\"plus\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+pairDevices[i]+"</a></li>";
+              output=output+"<li data-icon=\"plus\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+nameDevices[i]+"<br\>"+pairDevices[i]+"</a></li>";
             }
             output=output+"</ul>";
+            //Add trigger function because the list after refresh lost JQuery CSS item
             $("#listble").html(output).trigger("create");
             $('.newlistview').listview("refresh");
           }
