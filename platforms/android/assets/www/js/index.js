@@ -53,7 +53,14 @@ var app={
 var ble={
     gradi: function(){
       var gradi=$("#points").val();
-      console.log("Send to BLE: "+gradi);
+      bluetoothSerial.isConnected(
+        function(){
+          console.log("Send to BLE: "+gradi);
+        },
+        function(){
+          console.log("Send nothing...");
+        }
+      );
     },
     setble: function(){
       /*if(typeof cordova.plugins.settings.openSetting!=undefined){
@@ -73,34 +80,8 @@ var ble={
               //FAILURE
               console.log("NO BLUETOOTH SETTINGS ON DEVICE");
           });
-    }
-};
-
-$(document).ready(function(){
-    app.initialize();
-
-    //Connect the list at touch event
-    $("#listble").bind("touchstart click",function(e){
-      alert(e.target.getAttribute('deviceId'));
-      /*
-      var devAddress=e.target.getAttribute('deviceId');
-      bluetoothSerial.connect(devAddress,ble.onconnect,ble.ondisconnect);
-      */
-    });
-
-    //When slide chenge change value...
-    $("#points").change(function(){
-      ble.gradi();
-    });
-
-    $("#setblue").on("tap",function(){
-      //Load Bluetooth preferencies
-      console.log("BLE SETTINGS...");
-      ble.setble();
-    });
-
-    $("#device").on("tap",function(){
-      //Visualizzo la lista dei dispositivi associati
+    },
+    blepairlist: function(){
       console.log("BLE PAIR DEVICE...");
       var pairDevices=[],nameDevices=[];
       bluetoothSerial.list(
@@ -139,6 +120,51 @@ $(document).ready(function(){
           $("#listble").html("NO BLUETOOTH DEVICE FOUND");
         }
       );
+    },
+    connect: function(dev){
+      //Connect to BLE device
+      console.log("Connecting to "+dev);
+      bluetoothSerial.connect(dev,this.onconnect,this.ondisconnect);
+    },
+    onconnect: function(){
+      bluetoothSerial.isConnected(
+        function(){
+          console.log("CONNECTED");
+        },
+        function(){
+          console.log("NO BLE CONNECTED");
+        }
+      );
+    },
+    ondisconnect: function(){
+
+    }
+};
+
+$(document).ready(function(){
+    app.initialize();
+
+    //Connect the list at touch event
+    $("#listble").bind("touchstart click",function(e){
+      //alert(e.target.getAttribute('deviceId'));
+      var devAddress=e.target.getAttribute('deviceId');
+      ble.connect(devAddress);
+    });
+
+    //When slide chenge change value...
+    $("#points").change(function(){
+      ble.gradi();
+    });
+
+    $("#setblue").on("tap",function(){
+      //Load Bluetooth preferencies
+      console.log("BLE SETTINGS...");
+      ble.setble();
+    });
+
+    $("#device").on("tap",function(){
+      //Visualizzo la lista dei dispositivi associati
+      ble.blepairlist();
     });
 
 });
