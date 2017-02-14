@@ -89,7 +89,7 @@ var ble={
               console.log("NO BLUETOOTH SETTINGS ON DEVICE");
           });
     },
-    blepairlist: function(){
+    blepairlist: function(dev){
       console.log("BLE PAIR DEVICE...");
       var pairDevices=[],nameDevices=[];
       bluetoothSerial.list(
@@ -115,7 +115,11 @@ var ble={
 
             var output="<h2>FOUND: "+devices.length+"</h2><ul data-role=\"listview\">";
             for(i=0;i<=(devices.length-1);i++){
-              output=output+"<li data-icon=\"plus\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+nameDevices[i]+"<br\>"+pairDevices[i]+"</a></li>";
+              if(pairDevices[i]!=dev){
+                output=output+"<li data-icon=\"plus\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+nameDevices[i]+"<br\>"+pairDevices[i]+"</a></li>";
+              }else{
+                output=output+"<li data-icon=\"check\"><a href=\"#\" deviceId=\""+pairDevices[i]+"\">"+nameDevices[i]+"<br\>"+pairDevices[i]+"</a></li>";
+              }
             }
             output=output+"</ul>";
             //Add trigger function because the list after refresh lost JQuery CSS item
@@ -132,19 +136,24 @@ var ble={
     connect: function(dev){
       //Connect to BLE device
       console.log("Connecting to "+dev);
-      bluetoothSerial.connect(dev,this.onconnect,this.ondisconnect);
+      bluetoothSerial.connect(dev,this.onconnect(dev),this.ondisconnect(dev));
     },
-    onconnect: function(){
-      bluetoothSerial.isConnected(
-        function(){
-          console.log("CONNECTED");
-        },
-        function(){
-          console.log("NO BLE CONNECTED");
-        }
-      );
+    onconnect: function(dev){
+      //Wait a second and then control the bluetooth connection
+      setTimeout(function(){
+        bluetoothSerial.isConnected(
+          function(){
+            console.log("CONNECTED WITH: "+dev);
+          },
+          function(){
+            console.log("NO BLE CONNECTED");
+          }
+        );
+      },1000);
+      //Reload the list with the connected device
+      this.blepairlist(dev);
     },
-    ondisconnect: function(){
+    ondisconnect: function(dev){
 
     }
 };
@@ -171,8 +180,11 @@ $(document).ready(function(){
     });
 
     $("#device").on("tap",function(){
-      //Visualizzo la lista dei dispositivi associati
-      ble.blepairlist();
+      var dev="";
+      //First disconnect all devices...
+      bluetoothSerial.disconnect(ble.onconnect(dev),ble.ondisconnect(dev));
+      //Show pair BLE devices
+      ble.blepairlist(dev);
     });
 
 });
